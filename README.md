@@ -1,6 +1,7 @@
-# advent-of-code-2020
-My solutions for [advent-of-code-2020](https://adventofcode.com/2020) challenges in #Python3.
+# Advent of Code challenge
 
-For running you need only working installation of Python3; task input is provided in the corresponding *.txt file.
+My solutions for an [Advent of Code](https://adventofcode.com/) challenges in #Python3. Started in year 2020; solutions of each year are kept in their own folder together with source data file.
 
-P.S. Some solutions are not optimized in order to show more basic options and learning process.
+For running you need only working installation of Python3; task input is provided in the corresponding `*.txt` file.
+
+_Some solutions are not optimized in order to show more basic options and learning process._
