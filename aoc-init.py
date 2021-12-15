@@ -42,8 +42,8 @@ CODE_TEMPLATE_TEXT = """
 
 def read_file() -> str:
     with open((__file__.rstrip("code.py")+"input.txt"), 'r', encoding="utf-8") as input_file:
-        input = input_file.read()
-    return input
+        input_data = input_file.read()
+    return input_data
 
 def parse_input(input_data: str) -> list:
     # Parces input string to list of integers
@@ -55,7 +55,7 @@ def part_1(input_data: str) -> int:
     pass
 
 
-test_data_1 = '''x
+TEST_DATA_1 = '''x
 y
 z'''
 
@@ -64,7 +64,7 @@ def part_2(input_data: str) -> int:
     pass
 
 
-test_data_2 = '''x
+TEST_DATA_2 = '''x
 y
 z'''
 
