@@ -7,9 +7,19 @@
 
 # USER SPECIFIC PARAMETERS
 # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
-import datetime
+# Imports
+try:
+    from dotenv import dotenv_values
+except ImportError:
+    exit(
+        'ERROR! You need to install "python-dotenv" module: pip install python-dotenv')
+try:
+    import requests
+except ImportError:
+    exit('ERROR! You need to install "requests" module: pip install requests')
 import os
-from dotenv import dotenv_values
+# import datetime
+
 
 # config = {"USER": "foo", "EMAIL": "foo@example.org"}
 config = dotenv_values(".env")
@@ -86,11 +96,6 @@ last_advent_of_code_year = int(config["LAST_ADVENT_OF_CODE_YEAR"])
 # If the year isn't finished, the setup will download days up until that day included for the last year
 last_advent_of_code_day = int(config["LAST_ADVENT_OF_CODE_DAY"])
 
-# Imports
-try:
-    import requests
-except ImportError:
-    sys.exit("You need requests module. Install it by running pip install requests.")
 
 # Code
 MAX_RECONNECT_ATTEMPT = 2
@@ -191,9 +196,10 @@ for y in years:
                             html = response.text
                             start = html.find("<article")
                             end = html.rfind("</article>") + len("</article>")
-                            end_success = html.rfind("</code>") + len("</code>")
+                            end_success = html.rfind(
+                                "</code>") + len("</code>")
                             statement = open(day_pos + "/statement.html", "w+")
-                            statement.write(html[start : max(end, end_success)])
+                            statement.write(html[start: max(end, end_success)])
                             statement.close()
                         done = True
                 except requests.exceptions.RequestException:
@@ -216,7 +222,8 @@ for y in years:
         if MAKE_URL and (not os.path.exists(day_pos + "/link.url") or OVERWRITE):
             url = open(day_pos + "/link.url", "w+")
             url.write(
-                "[InternetShortcut]\nURL=" + link + str(y) + "/day/" + str(d) + "\n"
+                "[InternetShortcut]\nURL=" + link +
+                str(y) + "/day/" + str(d) + "\n"
             )
             url.close()
 print(
