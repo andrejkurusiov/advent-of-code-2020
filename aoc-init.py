@@ -65,18 +65,13 @@ def part_1(input_data: str) -> int:
     pass
 
 
-TEST_DATA_1 = '''x
+TEST_DATA = '''x
 y
 z'''
 
 
 def part_2(input_data: str) -> int:
     pass
-
-
-TEST_DATA_2 = '''x
-y
-z'''
 
 
 # --- MAIN ---
