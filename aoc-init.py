@@ -55,13 +55,14 @@ def read_file() -> str:
         input_data = input_file.read()
     return input_data
 
+
 def parse_input(input_data: str) -> list:
     # Parces input string to list of integers
     input_list = input_data.split('\\n')
     return list(map(int, input_list))
 
 
-def part_1(input_data: str) -> int:
+def part_1(data: list[str]) -> int:
     pass
 
 
@@ -70,13 +71,15 @@ y
 z'''
 
 
-def part_2(input_data: str) -> int:
+def part_2(data: list[str]) -> int:
     pass
 
 
 # --- MAIN ---
 if __name__ == "__main__":
     in_data = read_file()
+    in_data = TEST_DATA     # comment out to use real data
+    in_data = parse_input(in_data)
     print("Part One : "+ str(part_1(in_data)))
     print("Part Two : "+ str(part_2(in_data)))"""
 
