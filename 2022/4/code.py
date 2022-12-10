@@ -26,6 +26,7 @@ def part_1(data: list[int]) -> int:
             res += 1
     return res
 
+
 TEST_DATA = '''2-4,6-8
 2-3,4-5
 5-7,7-9
@@ -51,5 +52,5 @@ if __name__ == "__main__":
     in_data = read_file()
     # in_data = TEST_DATA     # comment out to use real data
     in_data = parse_input(in_data)
-    print("Part One : "+ str(part_1(in_data)))
-    print("Part Two : "+ str(part_2(in_data)))
+    print("Part One : " + str(part_1(in_data)))
+    print("Part Two : " + str(part_2(in_data)))
