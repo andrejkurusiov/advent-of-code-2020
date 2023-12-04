@@ -9,7 +9,7 @@ repos:
     hooks:
       - id: detect-secrets
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
     -   id: detect-private-key
     -   id: fix-encoding-pragma
@@ -22,14 +22,14 @@ repos:
         args: [--markdown-linebreak-ext=md]
     -   id: end-of-file-fixer
 -   repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 23.11.0
     hooks:
     -   id: black
         language: python
         args: [--config=pyproject.toml]
         files: \.py$
 -   repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
+    rev: 6.1.0
     hooks:
     -   id: flake8
         language: python
