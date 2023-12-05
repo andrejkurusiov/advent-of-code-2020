@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Advent of code Year 2023 Day 2 solution
 # Author = Andrej Kurusiov
 # Date = December 2023
@@ -42,17 +43,35 @@ Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
 Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green'''
-# => 1+2+5=8
+# Game 1: min 4 red, 2 green, and 6 blue cubes --> power=4*2*6 => 48
+# Game 2: min 1 red, 3 green, and 4 blue cubes --> 12
+# Game 3-5: 1560, 630, 36
+# Answer: 48+12+1560+630+36 = 2286.
 
 
 def part_2(data: list[str]) -> int:
-    pass
+    """For each game, find the minimum set of cubes that must have been present.
+    What is the sum of the power of these sets?"""
+    # from functools import reduce
+    from math import prod
+
+    ans = 0
+    for line in data:
+        min_balls = {'red': 0, 'green': 0, 'blue': 0}
+        takes = re.findall(r'(\d+) (red|green|blue)', line)
+        for take in takes:
+            n, color = int(take[0]), take[-1]
+            if n > min_balls.get(color):
+                min_balls[color] = n
+        # ans += reduce(lambda x, y: x * y, min_balls.values())
+        ans += prod(min_balls.values())
+    return ans
 
 
 # --- MAIN ---
 if __name__ == '__main__':
     in_data = read_file()
-    in_data = TEST_DATA  # comment out to use real data
+    # in_data = TEST_DATA  # comment out to use real data
     in_data = parse_input(in_data)
     print('Part One : ' + str(part_1(in_data)))
     print('Part Two : ' + str(part_2(in_data)))
