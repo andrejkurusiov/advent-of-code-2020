@@ -130,9 +130,8 @@ def part_2(data: list[str]) -> int:
 
     rows = len(data)
     cols = len(data[0])
-    potential_gears = (
-        {}
-    )  # {coord of an '*' (x, y): list of adjascent numbers[num1, num2, num3]}
+    # dict: {coord of an '*' (x, y): list of adjascent numbers[num1, num2, num3]}
+    potential_gears = {}
     for row in range(rows):
         num_found = ''
         stars_xy_for_num = set()  # coords of adjascent '*' symbols
