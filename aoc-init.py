@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Advent of code working directories creator
 # IMPORTANT Remember to edit the USER_SESSION_ID & author values with yours
 # uses requests module. If not present use pip install requests
@@ -11,13 +12,13 @@
 try:
     from dotenv import dotenv_values
 except ImportError:
-    exit(
-        'ERROR! You need to install "python-dotenv" module: pip install python-dotenv')
+    exit('ERROR! You need to install "python-dotenv" module: pip install python-dotenv')
 try:
     import requests
 except ImportError:
     exit('ERROR! You need to install "requests" module: pip install requests')
 import os
+
 # import datetime
 
 
@@ -194,10 +195,9 @@ for y in years:
                             html = response.text
                             start = html.find('<article')
                             end = html.rfind('</article>') + len('</article>')
-                            end_success = html.rfind(
-                                '</code>') + len('</code>')
+                            end_success = html.rfind('</code>') + len('</code>')
                             statement = open(day_pos + '/statement.html', 'w+')
-                            statement.write(html[start: max(end, end_success)])
+                            statement.write(html[start : max(end, end_success)])
                             statement.close()
                         done = True
                 except requests.exceptions.RequestException:
@@ -220,8 +220,7 @@ for y in years:
         if MAKE_URL and (not os.path.exists(day_pos + '/link.url') or OVERWRITE):
             url = open(day_pos + '/link.url', 'w+')
             url.write(
-                '[InternetShortcut]\nURL=' + link +
-                str(y) + '/day/' + str(d) + '\n'
+                '[InternetShortcut]\nURL=' + link + str(y) + '/day/' + str(d) + '\n'
             )
             url.close()
 print(
