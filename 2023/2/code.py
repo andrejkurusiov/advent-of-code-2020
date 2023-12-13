@@ -31,7 +31,7 @@ def part_1(data: list[str]) -> int:
         takes = re.findall(r'(\d+) (red|green|blue)', line)
         for take in takes:
             n, color = int(take[0]), take[-1]
-            if n > max_balls.get(color):
+            if n > max_balls.get(color, 0):
                 break
         else:
             ids_res.append(i + 1)
@@ -61,7 +61,7 @@ def part_2(data: list[str]) -> int:
         takes = re.findall(r'(\d+) (red|green|blue)', line)
         for take in takes:
             n, color = int(take[0]), take[-1]
-            if n > min_balls.get(color):
+            if n > min_balls.get(color, 0):
                 min_balls[color] = n
         # ans += reduce(lambda x, y: x * y, min_balls.values())
         ans += prod(min_balls.values())
