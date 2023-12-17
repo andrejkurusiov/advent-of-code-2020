@@ -47,11 +47,11 @@ Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
 Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11'''
-# PART 1: 8+2+2+1+0+0 = 13 points. Answer = 20855.
-# PART 2: 30.
+# PART 1: 8+2+2+1+0+0 = 13 points (test). Answer = 20855.
+# PART 2: 30 (test). Answer = 5489600.
 #   1 instance of card 1, 2 instances of card 2, 4 instances of card 3,
 #   8 instances of card 4, 14 instances of card 5, and 1 instance of card 6.
-#   In total, it causes you to ultimately have 30 scratchcards
+#   In total, it causes you to ultimately have 30 scratchcards.
 
 
 def part_2(data: list) -> int:
@@ -60,13 +60,16 @@ def part_2(data: list) -> int:
     Copies of scratchcards are scored like normal scratchcards and have the same card number as the card they copied.
     This process repeats until none of the copies cause you to win any more cards.
     How many total scratchcards do you end up with?"""
+    cd = {}
+    # cards_dic = {1: [next_cards, pcs=1], 2: [next_cards, pcs=1], 3: [next_cards, pcs=1], ... , n: [0, pcs=1]}
     res = 0
-    for item in data:
+    for i, item in enumerate(data):
         items_matching = len(item[0].intersection(item[1]))
-        if items_matching:
-            pass
-            # TODO: card_number: [cards_nums_won]
-            # cards_dic = {1: [next_cards, pcs=1], 2: [next_cards, pcs=1], 3: [next_cards, pcs=1], ... , n: [0, pcs=1]}
+        cd[i] = [items_matching, 1]
+    for i, item in cd.items():
+        res += item[1]
+        for n in range(i + 1, min(len(cd), i + 1 + item[0])):
+            cd[n][1] += item[1]
     return res
 
 
