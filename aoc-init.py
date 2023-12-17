@@ -128,12 +128,13 @@ for y in years:
         if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos + '/code.py'):
             code = open(day_pos + '/code.py', 'w+')
             code.write(
-                '# Advent of code Year '
+                '# -*- coding: utf-8 -*-'
+                + '# Advent of code Year '
                 + str(y)
                 + ' Day '
                 + str(d)
                 + ' solution\n# Author = '
-                + AUTHOR
+                + AUTHOR  # type: ignore
                 + '\n# Date = '
                 + date
                 + CODE_TEMPLATE_TEXT
