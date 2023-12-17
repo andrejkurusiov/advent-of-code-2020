@@ -48,11 +48,26 @@ Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11'''
 # PART 1: 8+2+2+1+0+0 = 13 points. Answer = 20855.
-# PART 2:
+# PART 2: 30.
+#   1 instance of card 1, 2 instances of card 2, 4 instances of card 3,
+#   8 instances of card 4, 14 instances of card 5, and 1 instance of card 6.
+#   In total, it causes you to ultimately have 30 scratchcards
 
 
-def part_2(data: list[str]) -> int:
-    pass
+def part_2(data: list) -> int:
+    """You win copies of the scratchcards below the winning card equal to the number of matches.
+    So, if card 10 were to have 5 matching numbers, you would win one copy each of cards 11, 12, 13, 14, and 15.
+    Copies of scratchcards are scored like normal scratchcards and have the same card number as the card they copied.
+    This process repeats until none of the copies cause you to win any more cards.
+    How many total scratchcards do you end up with?"""
+    res = 0
+    for item in data:
+        items_matching = len(item[0].intersection(item[1]))
+        if items_matching:
+            pass
+            # TODO: card_number: [cards_nums_won]
+            # cards_dic = {1: [next_cards, pcs=1], 2: [next_cards, pcs=1], 3: [next_cards, pcs=1], ... , n: [0, pcs=1]}
+    return res
 
 
 # --- MAIN ---
