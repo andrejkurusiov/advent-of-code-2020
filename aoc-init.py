@@ -51,8 +51,11 @@ OVERWRITE = config['OVERWRITE']
 # Code template
 CODE_TEMPLATE_TEXT = """
 
+
 def read_file() -> str:
-    with open((__file__.rstrip('code.py')+'input.txt'), 'r', encoding='utf-8') as input_file:
+    with open(
+        file=(__file__.rstrip('code.py') + 'input.txt'), mode='r', encoding='utf-8'
+    ) as input_file:
         input_data = input_file.read()
     return input_data
 
@@ -60,16 +63,16 @@ def read_file() -> str:
 def parse_input(input_data: str) -> list:
     # Parces input string to list of integers
     input_list = input_data.split('\\n')
-    return list(map(int, input_list))
+    return input_list
 
 
 def part_1(data: list[str]) -> int:
     pass
 
 
-TEST_DATA = '''x
+TEST_DATA = \"\"\"x
 y
-z'''
+z\"\"\"
 
 
 def part_2(data: list[str]) -> int:
@@ -79,17 +82,17 @@ def part_2(data: list[str]) -> int:
 # --- MAIN ---
 if __name__ == '__main__':
     in_data = read_file()
-    in_data = TEST_DATA     # comment out to use real data
+    in_data = TEST_DATA  # comment out to use real data
     in_data = parse_input(in_data)
-    print('Part One : '+ str(part_1(in_data)))
-    print('Part Two : '+ str(part_2(in_data)))"""
+    print(f'Part One : {part_1(in_data)}')
+    print(f'Part Two : {part_2(in_data)}')
+"""
 
 # DATE SPECIFIC PARAMETERS
 # Date text automatically put in the code templates.
 date = config['DATE']
-starting_advent_of_code_year = int(
-    config['STARTING_ADVENT_OF_CODE_YEAR']
-)  # You can go as early as 2015.
+# You can go as early as 2015.
+starting_advent_of_code_year = int(config['STARTING_ADVENT_OF_CODE_YEAR'])
 # The setup will download all advent of code data up until that date included
 last_advent_of_code_year = int(config['LAST_ADVENT_OF_CODE_YEAR'])
 # If the year isn't finished, the setup will download days up until that day included for the last year
@@ -109,10 +112,10 @@ USER_AGENT = 'adventofcode_working_directories_creator'
 print(
     'Setup will download data and create working directories and files for adventofcode.'
 )
-if not os.path.exists(base_pos):
-    os.mkdir(base_pos)
+if not os.path.exists(path=base_pos):
+    os.mkdir(path=base_pos)
 for y in years:
-    print('Year ' + str(y))
+    print(f'Year {y}')
     if not os.path.exists(base_pos + str(y)):
         os.mkdir(base_pos + str(y))
     year_pos = base_pos + str(y)
@@ -121,29 +124,23 @@ for y in years:
         for d in days
         if (y < last_advent_of_code_year or d <= last_advent_of_code_day)
     ):
-        print('    Day ' + str(d))
-        if not os.path.exists(year_pos + '/' + str(d)):
-            os.mkdir(year_pos + '/' + str(d))
+        print(f'\tDay {d}')
+        if not os.path.exists(path=year_pos + '/' + str(d)):
+            os.mkdir(path=year_pos + '/' + str(d))
         day_pos = year_pos + '/' + str(d)
-        if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos + '/code.py'):
-            code = open(day_pos + '/code.py', 'w+')
+        if MAKE_CODE_TEMPLATE and not os.path.exists(path=day_pos + '/code.py'):
+            code = open(file=day_pos + '/code.py', mode='w+')
             code.write(
-                '# -*- coding: utf-8 -*-'
-                + '# Advent of code Year '
-                + str(y)
-                + ' Day '
-                + str(d)
-                + ' solution\n# Author = '
-                + AUTHOR  # type: ignore
-                + '\n# Date = '
-                + date
+                '# -*- coding: utf-8 -*-\n#\n'
+                + f'# Advent of code: Year {y} Day {d} solution\n'
+                + f'# Author = {AUTHOR}\n'
+                + f'# Date = {date}'
                 + CODE_TEMPLATE_TEXT
             )
-            #    "\n\nwith open((__file__.rstrip(\"code.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))")
             code.close()
         if (
             DOWNLOAD_INPUTS
-            and (not os.path.exists(day_pos + '/input.txt') or OVERWRITE)
+            and (not os.path.exists(path=day_pos + '/input.txt') or OVERWRITE)
             and USER_SESSION_ID != ''
         ):
             done = False
@@ -157,27 +154,26 @@ for y in years:
                     ) as response:
                         if response.ok:
                             data = response.text
-                            input = open(day_pos + '/input.txt', 'w+')
-                            input.write(data.rstrip('\n'))
-                            input.close()
+                            in_file = open(file=day_pos + '/input.txt', mode='w+')
+                            in_file.write(data.rstrip('\n'))
+                            in_file.close()
                         else:
-                            print('        Server response for input is not valid.')
+                            print('\t\tServer response for input is not valid.')
                     done = True
                 except requests.exceptions.RequestException:
                     error_count += 1
                     if error_count > MAX_RECONNECT_ATTEMPT:
-                        print('        Giving up.')
+                        print('\t\tGiving up.')
                         done = True
                     elif error_count == 0:
                         print(
-                            '        Error while requesting input from server. Request probably timed out. Trying again.'
+                            '\t\tError while requesting input from server. Request probably timed out. Trying again.'
                         )
                     else:
-                        print('        Trying again.')
+                        print('\t\tTrying again.')
                 except Exception as e:
                     print(
-                        '        Non handled error while requesting input from server. '
-                        + str(e)
+                        f'\t\tNon handled error while requesting input from server. {e}'
                     )
                     done = True
         if DOWNLOAD_STATEMENTS and (
@@ -205,20 +201,19 @@ for y in years:
                     error_count += 1
                     if error_count > MAX_RECONNECT_ATTEMPT:
                         print(
-                            '        Error while requesting statement from server. Request probably timed out. Giving up.'
+                            '\t\tError while requesting statement from server. Request probably timed out. Giving up.'
                         )
                         done = True
                     else:
                         print(
-                            '        Error while requesting statement from server. Request probably timed out. Trying again.'
+                            '\t\tError while requesting statement from server. Request probably timed out. Trying again.'
                         )
                 except Exception as e:
                     print(
-                        '        Non handled error while requesting statement from server. '
-                        + str(e)
+                        f'\t\tNon handled error while requesting statement from server. {e}'
                     )
                     done = True
-        if MAKE_URL and (not os.path.exists(day_pos + '/link.url') or OVERWRITE):
+        if MAKE_URL and (not os.path.exists(path=day_pos + '/link.url') or OVERWRITE):
             url = open(day_pos + '/link.url', 'w+')
             url.write(
                 '[InternetShortcut]\nURL=' + link + str(y) + '/day/' + str(d) + '\n'
