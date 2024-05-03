@@ -21,7 +21,19 @@ def parse_input(input_data: str) -> list[tuple[set, set]]:
     for line in lines:
         a = set()
         b = set()
+        
+        # replace regex below
         ab = re.search(r":\s+((?:\d+\s*)+)\|\s+((?:\d+\s*)+)", line)
+        # test with the following
+        # optimized_regex = r":\s+(?P<numbers1>\d+(?:\s+\d+)*)\|\s+(?P<numbers2>\d+(?:\s+\d+)*)"
+        # match = re.search(optimized_regex, line)
+        #if match:
+        #    numbers1 = match.group('numbers1')
+        #    numbers2 = match.group('named_numbers2')
+        #    # Process numbers1 and numbers2
+        #else:
+        #    # Handle no match case
+
         if ab:
             a = set(map(int, ab.group(1).split()))
             b = set(map(int, ab.group(2).split()))
